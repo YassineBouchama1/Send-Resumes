@@ -1,13 +1,14 @@
 import { Letter, Resume } from '@/types'
 import SenderForm from '@/components/SenderForm';
-import { GetResums } from './api/resumes/route';
-import { GetLetters } from './api/letters/route';
+
+
 import { Toaster } from 'react-hot-toast';
 
 export default async function Home() {
 
-const resumesResponse = await GetResums();
-const lettersResponse = await GetLetters();
+
+const resumesResponse = await fetch(`${process.env.URL}/api/resumes`);
+const lettersResponse = await fetch(`${process.env.URL}/api/letters`);
 
 const lettersData: Letter[] = await lettersResponse.json();
 const resumesData: Resume[] = await resumesResponse.json();

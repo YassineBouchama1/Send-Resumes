@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Letter, Resume } from "@/types";
 import Loader from "@/shared/Loader";
 import type { FC } from "react";
@@ -16,8 +16,12 @@ const SenderForm: FC<SenderFormProps> = ({ resumes = [], letters = [] }) => {
   const [selectedLetter, setSelectedLetter] = useState<string>("");
   const [selectedResume, setSelectedResume] = useState<string>("");
   const [subject, setSubject] = useState<string>("");
-  const [emailSent, setEmailSent] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+
+
+
+
 
 
   // function to handle
@@ -43,10 +47,13 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   setIsLoading(false);
 };
 
+
+
+
 //
 async function onSend(email: string): Promise<void> {
   try {
-    const response = await fetch("/api/send-email", {
+  await fetch("/api/send-email", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -64,6 +71,10 @@ async function onSend(email: string): Promise<void> {
     throw error; 
   }
 }
+
+
+
+
 
 
   return (
