@@ -7,8 +7,12 @@ import { Toaster } from 'react-hot-toast';
 export default async function Home() {
 
 
-const resumesResponse = await fetch(`${process.env.URL}/api/resumes`);
-const lettersResponse = await fetch(`${process.env.URL}/api/letters`);
+const resumesResponse = await fetch(
+  `${process.env.NEXT_PUBLIC_API_URL}/api/resumes`
+);
+const lettersResponse = await fetch(
+  `${process.env.NEXT_PUBLIC_API_URL}/api/letters`
+);
 
 const lettersData: Letter[] = await lettersResponse.json();
 const resumesData: Resume[] = await resumesResponse.json();

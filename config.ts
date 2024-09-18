@@ -1,6 +1,7 @@
 export const config = {
-  emailSmtp: process.env.EMAIL_USER,
-  passSmtp: process.env.EMAIL_PASS,
+  emailSmtp: process.env.NEXT_PUBLIC_EMAIL_USER,
+  passSmtp: process.env.NEXT_PUBLIC_EMAIL_PASS,
   hostSmtp: "smtp.titan.email",
   portSmtp: 465,
 };
+
