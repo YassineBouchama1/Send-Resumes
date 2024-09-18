@@ -4,48 +4,64 @@ import { useState, useEffect } from "react";
 import { Letter, Resume } from "@/types";
 import Loader from "@/shared/Loader";
 import type { FC } from "react";
+import toast from "react-hot-toast";
 
 interface SenderFormProps {
   resumes: Resume[];
   letters: Letter[];
 }
 
-const SenderForm: FC<SenderFormProps> = ({ resumes = [], letters = []}) => {
+const SenderForm: FC<SenderFormProps> = ({ resumes = [], letters = [] }) => {
   const [emails, setEmails] = useState<string>("");
   const [selectedLetter, setSelectedLetter] = useState<string>("");
   const [selectedResume, setSelectedResume] = useState<string>("");
   const [subject, setSubject] = useState<string>("");
-//   const [letters, setLetters] = useState<Letter[]>([]);
-//   const [resumes, setResumes] = useState<Resume[]>([]);
+  const [emailSent, setEmailSent] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      // split emails
-      const emailList = emails.split(",").map((email) => email.trim());
-      const response = await fetch("/api/send-emails", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          emails: emailList,
-          letterId: selectedLetter,
-          resumeId: selectedResume,
-          subject,
-        }),
-      });
-      const result = await response.json();
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  setIsLoading(true);
 
-      alert(result.message);
-    } catch (error) {
-      alert(`Error fetching data: ${error}`);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // Split emails
+  const emailList =  emails.split(",").map((email) => email.trim());
+
+  // Send each email alone
+  for (const email of emailList) {
+    const myPromise = onSend(email);
+
+    await toast.promise(myPromise, {
+      loading: `Sending...To ${email}`,
+      success: <b>Email sent!</b>,
+      error: <b>Email not sent.</b>, 
+    });
+  }
+
+  setIsLoading(false);
+};
+
+//
+async function onSend(email: string): Promise<void> {
+  try {
+    const response = await fetch("/api/send-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        letterId: selectedLetter,
+        resumeId: selectedResume,
+        subject,
+      }),
+    });
+
+
+  } catch (error) {
+    throw error; 
+  }
+}
+
 
   return (
     <div className="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden relative">

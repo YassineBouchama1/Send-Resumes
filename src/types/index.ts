@@ -11,7 +11,8 @@ export interface Letter {
   }
   
   export interface EmailRequest {
-    emails: string[];
+    emails?: string[];
+    email?: string;
     letterId: string;
     resumeId: string;
     subject: string;

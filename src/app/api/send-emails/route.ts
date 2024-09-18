@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
-import { EmailRequest, Letter, Resume } from '@/types'
+import { EmailRequest } from '@/types'
 import fs from 'fs'
 import path from 'path'
 
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
 
     try {
         // dend emails to each recipient
-        for (const email of emails) {
+        for (const email of emails!) {
             await transporter.sendMail({
                 from: process.env.EMAIL_USER,
                 to: email,
