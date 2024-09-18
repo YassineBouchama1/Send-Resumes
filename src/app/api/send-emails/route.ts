@@ -19,8 +19,8 @@ export async function POST(req: Request) {
     // configure nodemailer with your email service credentials : useing Gmail
     //TODO: i will make this dynamic 
     const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 587,
+        host: 'smtp.titan.email',
+        port: 465,
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS,

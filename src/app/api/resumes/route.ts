@@ -6,7 +6,7 @@ import path from 'path'
 export async function GET() {
 
     // get resumes from folder 
-    const resumesDir = path.join(process.cwd(), 'data', 'resumes') 
+    const resumesDir = path.join(process.cwd(), 'data', 'resumes')
     const resumeFiles = fs.readdirSync(resumesDir)
 
     const resumes: Resume[] = resumeFiles.map(file => {

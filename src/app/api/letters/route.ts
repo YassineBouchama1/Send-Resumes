@@ -4,6 +4,7 @@ import fs from 'fs'
 import path from 'path'
 
 export async function GET() {
+    console.log(path.join(process.cwd()))
     const lettersDir = path.join(process.cwd(), 'data', 'letters')
     const letterFiles = fs.readdirSync(lettersDir)
 
@@ -12,6 +13,9 @@ export async function GET() {
         const content = fs.readFileSync(path.join(lettersDir, file), 'utf-8')
         return { id, name: `Letter ${id}`, content }
     })
+
+
+    console.log(letters)
 
     return NextResponse.json(letters)
 }

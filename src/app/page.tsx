@@ -11,38 +11,66 @@ export default function Home() {
   const [subject, setSubject] = useState<string>('')
   const [letters, setLetters] = useState<Letter[]>([])
   const [resumes, setResumes] = useState<Resume[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+
 
   useEffect(() => {
     const fetchData = async () => {
-
+      setIsLoading(true)
       // fech data
-      const lettersResponse = await fetch('/api/letters')
-      const resumesResponse = await fetch('/api/resumes')
-      const lettersData: Letter[] = await lettersResponse.json()
-      const resumesData: Resume[] = await resumesResponse.json()
-      setLetters(lettersData)
-      setResumes(resumesData)
+      try {
+        const lettersResponse = await fetch('/api/letters')
+        if (!lettersResponse.ok) throw new Error('Failed to fetch letters')
+
+        const resumesResponse = await fetch('/api/resumes')
+        if (!resumesResponse.ok) throw new Error('Failed to fetch resumes')
+
+        const lettersData: Letter[] = await lettersResponse.json()
+        const resumesData: Resume[] = await resumesResponse.json()
+
+        setLetters(lettersData)
+        setResumes(resumesData)
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      } finally {
+        setIsLoading(false)
+
+      }
     }
     fetchData()
   }, [])
 
+
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const emailList = emails.split(',').map(email => email.trim())
-    const response = await fetch('/api/send-emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        emails: emailList,
-        letterId: selectedLetter,
-        resumeId: selectedResume,
-        subject,
-      }),
-    })
-    const result = await response.json()
-    alert(result.message)
+    setIsLoading(true)
+    try {
+      // split emails 
+      const emailList = emails.split(',').map(email => email.trim())
+      const response = await fetch('/api/send-emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          emails: emailList,
+          letterId: selectedLetter,
+          resumeId: selectedResume,
+          subject,
+        }),
+      })
+      const result = await response.json()
+
+      alert(result.message)
+    } catch (error) {
+      alert(`Error fetching data: ${error}`)
+
+    }
+    finally {
+      setIsLoading(false)
+    }
   }
 
 
@@ -54,6 +82,7 @@ export default function Home() {
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label htmlFor="emails" className="block text-sm font-medium text-gray-700">Email Addresses (comma-separated)</label>
+              <label htmlFor="emails" className="block text-sm font-medium text-gray-700">Example: hello@yassine.info,bouchamajob@gmail.com</label>
               <textarea
                 id="emails"
                 value={emails}
@@ -106,10 +135,12 @@ export default function Home() {
             </div>
             <div>
               <button
+                disabled={isLoading}
                 type="submit"
                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Send Emails
+
+                {isLoading ? 'Sending' : 'Send Emails'}
               </button>
             </div>
           </form>
