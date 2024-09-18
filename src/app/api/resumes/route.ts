@@ -4,7 +4,9 @@ import fs from 'fs'
 import path from 'path'
 
 export async function GET() {
-    const resumesDir = path.join(process.cwd(), 'data', 'resumes')
+
+    // get resumes from folder 
+    const resumesDir = path.join(process.cwd(), 'data', 'resumes') 
     const resumeFiles = fs.readdirSync(resumesDir)
 
     const resumes: Resume[] = resumeFiles.map(file => {

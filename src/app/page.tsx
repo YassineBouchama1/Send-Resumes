@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Letter, Resume } from '@/types'
 
 export default function Home() {
+
   const [emails, setEmails] = useState<string>('')
   const [selectedLetter, setSelectedLetter] = useState<string>('')
   const [selectedResume, setSelectedResume] = useState<string>('')
@@ -11,6 +12,38 @@ export default function Home() {
   const [letters, setLetters] = useState<Letter[]>([])
   const [resumes, setResumes] = useState<Resume[]>([])
 
+  useEffect(() => {
+    const fetchData = async () => {
+
+      // fech data
+      const lettersResponse = await fetch('/api/letters')
+      const resumesResponse = await fetch('/api/resumes')
+      const lettersData: Letter[] = await lettersResponse.json()
+      const resumesData: Resume[] = await resumesResponse.json()
+      setLetters(lettersData)
+      setResumes(resumesData)
+    }
+    fetchData()
+  }, [])
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const emailList = emails.split(',').map(email => email.trim())
+    const response = await fetch('/api/send-emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        emails: emailList,
+        letterId: selectedLetter,
+        resumeId: selectedResume,
+        subject,
+      }),
+    })
+    const result = await response.json()
+    alert(result.message)
+  }
 
 
   return (
@@ -18,8 +51,8 @@ export default function Home() {
       <div className="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden">
         <div className="px-4 py-5 sm:p-6">
           <h1 className="text-2xl font-bold text-center mb-8">Email Sender</h1>
-          <form >
-          <div className="mb-4">
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
               <label htmlFor="emails" className="block text-sm font-medium text-gray-700">Email Addresses (comma-separated)</label>
               <textarea
                 id="emails"
