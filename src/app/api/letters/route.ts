@@ -3,7 +3,8 @@ import { Letter } from '@/types'
 import fs from 'fs'
 import path from 'path'
 
-export async function GET() {
+export async function GetLetters() {
+
     console.log(path.join(process.cwd()))
     const lettersDir = path.join(process.cwd(), 'data', 'letters')
     const letterFiles = fs.readdirSync(lettersDir)

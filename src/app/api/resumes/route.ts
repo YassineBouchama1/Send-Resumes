@@ -3,7 +3,7 @@ import { Resume } from '@/types'
 import fs from 'fs'
 import path from 'path'
 
-export async function GET() {
+export async function GetResums() {
 
     // get resumes from folder 
     const resumesDir = path.join(process.cwd(), 'data', 'resumes')
