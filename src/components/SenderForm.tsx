@@ -87,22 +87,18 @@ async function onSend(email: string): Promise<void> {
           <div className="mb-4">
             <label
               htmlFor="emails"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 pb-4"
             >
-              Email Addresses (comma-separated)
+              <p> Email Addresses (comma-separated)</p>
+              <span> Example: hello@yassine.info,bouchamajob@gmail.com</span>
             </label>
-            <label
-              htmlFor="emails"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Example: hello@yassine.info,bouchamajob@gmail.com
-            </label>
+
             <textarea
               id="emails"
               value={emails}
               onChange={(e) => setEmails(e.target.value)}
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm border-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               rows={4}
             />
           </div>
@@ -118,7 +114,7 @@ async function onSend(email: string): Promise<void> {
               value={selectedLetter}
               onChange={(e) => setSelectedLetter(e.target.value)}
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring border-2 focus:ring-indigo-200 focus:ring-opacity-50"
             >
               <option value="">Select a letter</option>
               {letters.map((letter) => (
@@ -140,7 +136,7 @@ async function onSend(email: string): Promise<void> {
               value={selectedResume}
               onChange={(e) => setSelectedResume(e.target.value)}
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm border-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             >
               <option value="">Select a resume</option>
               {resumes.map((resume) => (
@@ -163,14 +159,14 @@ async function onSend(email: string): Promise<void> {
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm border-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             />
           </div>
           <div>
             <button
               disabled={isLoading}
               type="submit"
-              style={{ opacity: isLoading ? 0.4 :1}}
+              style={{ opacity: isLoading ? 0.4 : 1 }}
               className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               {isLoading ? "Sending" : "Send Emails"}
