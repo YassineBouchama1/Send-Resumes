@@ -5,7 +5,7 @@ import path from "path";
 
 export async function GET() {
 
-  const lettersDir = path.join(process.cwd(), "data", "letters");
+  const lettersDir = path.join(process.cwd(),"public", "data", "letters");
   const letterFiles = fs.readdirSync(lettersDir);
 
   const letters: Letter[] = letterFiles.map((file) => {
