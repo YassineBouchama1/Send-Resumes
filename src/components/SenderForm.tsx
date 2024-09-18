@@ -19,6 +19,8 @@ const SenderForm: FC<SenderFormProps> = ({ resumes = [], letters = [] }) => {
   const [emailSent, setEmailSent] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+
+  // function to handle
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   setIsLoading(true);
@@ -28,15 +30,16 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
   // Send each email alone
   for (const email of emailList) {
-    const myPromise = onSend(email);
-
-    await toast.promise(myPromise, {
+   
+    // Send email with a loading spinner and success/error toast
+    await toast.promise(onSend(email), {
       loading: `Sending...To ${email}`,
       success: <b>Email sent!</b>,
       error: <b>Email not sent.</b>, 
     });
   }
 
+  // Update state and toast success message
   setIsLoading(false);
 };
 
@@ -156,6 +159,7 @@ async function onSend(email: string): Promise<void> {
             <button
               disabled={isLoading}
               type="submit"
+              style={{ opacity: isLoading ? 0.4 :1}}
               className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               {isLoading ? "Sending" : "Send Emails"}
