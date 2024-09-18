@@ -10,7 +10,7 @@ Clone the repository to your local machine using Git:
 
 ```bash
 git clone https://github.com/your-username/your-repository.git
-
+`
 ### 2. Install Dependencies
 
 Navigate to the project directory and install the required dependencies:
@@ -19,7 +19,7 @@ Navigate to the project directory and install the required dependencies:
 Copy code
 cd your-repository
 npm install
-
+`
 
 ### 3. Configure Environment Variables
 
@@ -29,6 +29,7 @@ Create a .env.local file in the root directory of the project with the following
 EMAIL_USER=email smtp
 EMAIL_PASS=password smtp
 Replace these values with your SMTP server credentials.
+`
 
 ### 4. Update Configuration
 
@@ -49,7 +50,7 @@ Start the development server with the following command:
 
 ```bash
 npm run dev
-
+`
 
 
 
