@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Letter, Resume } from '@/types'
+import Loader from '@/shared/Loader'
 
 export default function Home() {
 
@@ -76,10 +77,12 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+      <div className="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden relative">
+        {isLoading && <Loader/>}
+
         <div className="px-4 py-5 sm:p-6">
           <h1 className="text-2xl font-bold text-center mb-8">Email Sender</h1>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} >
             <div className="mb-4">
               <label htmlFor="emails" className="block text-sm font-medium text-gray-700">Email Addresses (comma-separated)</label>
               <label htmlFor="emails" className="block text-sm font-medium text-gray-700">Example: hello@yassine.info,bouchamajob@gmail.com</label>
