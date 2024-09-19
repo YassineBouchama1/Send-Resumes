@@ -4,6 +4,8 @@ import path from "path";
 import fs from "fs";
 
 export async function GET() {
+    
+  // defind location of folder
   const resumesDir = path.join(process.cwd(), "data", "resumes");
 
   try {

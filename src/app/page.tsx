@@ -6,6 +6,9 @@ import { Letter, Resume } from "@/types";
 import { Toaster } from 'react-hot-toast';
 
 export default async function Home() {
+
+
+  // fetch all letters and resumes
   const apiUrl =
     process.env.NODE_ENV === "production"
       ? process.env.NEXT_PUBLIC_API_URL
