@@ -5,14 +5,18 @@ import SenderForm from '@/components/SenderForm/SenderForm';
 import { Toaster } from 'react-hot-toast';
 
 export default async function Home() {
+const apiUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://your-production-api.com"
+    : process.env.NEXT_PUBLIC_API_URL;
+
+const resumesResponse = await fetch(`${apiUrl}/api/resumes`);
+const lettersResponse = await fetch(`${apiUrl}/api/letters`);
 
 
-const resumesResponse = await fetch(
-  `${process.env.NEXT_PUBLIC_API_URL}/api/resumes`
-);
-const lettersResponse = await fetch(
-  `${process.env.NEXT_PUBLIC_API_URL}/api/letters`
-);
+ if (!resumesResponse.ok || !lettersResponse.ok) {
+   throw new Error("Network response was not ok");
+ }
 
 const lettersData: Letter[] = await lettersResponse.json();
 const resumesData: Resume[] = await resumesResponse.json();
