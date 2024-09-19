@@ -2,7 +2,7 @@
 
 import { Letter, Resume } from "@/types";
 import Loader from "@/components/Loader";
-import type { FC } from "react";
+import { useMemo, type FC } from "react";
 
 import SenderFormHook from "./SenderForm.hook";
 
@@ -12,10 +12,6 @@ interface SenderFormProps {
 }
 
 const SenderForm: FC<SenderFormProps> = ({ resumes = [], letters = [] }) => {
-
-
-
-
   const {
     handleSubmit,
     isLoading,
@@ -29,11 +25,22 @@ const SenderForm: FC<SenderFormProps> = ({ resumes = [], letters = [] }) => {
     emails,
   } = SenderFormHook();
 
+  // memorize and build  th options for letters and resumes
+  const letterOptions = useMemo(() => {
+    return letters.map((letter) => (
+      <option key={letter.id} value={letter.id}>
+        {letter.name}
+      </option>
+    ));
+  }, [letters]);
 
-
-
-
-
+  const resumeOptions = useMemo(() => {
+    return resumes.map((resume) => (
+      <option key={resume.id} value={resume.id}>
+        {resume.name}
+      </option>
+    ));
+  }, [resumes]);
 
   return (
     <div className="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden relative">
@@ -75,11 +82,7 @@ const SenderForm: FC<SenderFormProps> = ({ resumes = [], letters = [] }) => {
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring border-2 focus:ring-indigo-200 focus:ring-opacity-50"
             >
               <option value="">Select a letter</option>
-              {letters.map((letter) => (
-                <option key={letter.id} value={letter.id}>
-                  {letter.name}
-                </option>
-              ))}
+              {letterOptions}
             </select>
           </div>
           <div className="mb-4">
@@ -97,11 +100,7 @@ const SenderForm: FC<SenderFormProps> = ({ resumes = [], letters = [] }) => {
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm border-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             >
               <option value="">Select a resume</option>
-              {resumes.map((resume) => (
-                <option key={resume.id} value={resume.id}>
-                  {resume.name}
-                </option>
-              ))}
+              {resumeOptions}
             </select>
           </div>
           <div className="mb-4">
