@@ -26,8 +26,11 @@ npm install
 Create a `.env.local` file in the root directory of the project with the following content:
 
 ```bash
-EMAIL_USER=email smtp
-EMAIL_PASS=password smtp
+NEXT_PUBLIC_EMAIL_USER='email smtp'
+NEXT_PUBLIC_EMAIL_PASS='pass smtp'
+NEXT_PUBLIC_API_URL_LOCAL=http://localhost:3000
+NEXT_PUBLIC_API_URL='production host'
+NEXT_PUBLIC_NODE_ENV=production
 ```
 
 Replace these values with your SMTP server credentials.
