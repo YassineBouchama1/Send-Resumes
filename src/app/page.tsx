@@ -1,27 +1,32 @@
-import { Letter, Resume } from '@/types'
+
 import SenderForm from '@/components/SenderForm/SenderForm';
+import { Letter, Resume } from "@/types";
 
 
 import { Toaster } from 'react-hot-toast';
 
 export default async function Home() {
-const apiUrl =
-  process.env.NODE_ENV === "production"
-    ? process.env.NEXT_PUBLIC_API_URL
-    : process.env.NEXT_PUBLIC_API_URL_LOCAL;
+  const apiUrl =
+    process.env.NODE_ENV === "production"
+      ? process.env.NEXT_PUBLIC_API_URL
+      : process.env.NEXT_PUBLIC_API_URL_LOCAL;
 
-const resumesResponse = await fetch(`${apiUrl}/api/resumes`);
-const lettersResponse = await fetch(`${apiUrl}/api/letters`);
+  let lettersData: Letter[] = [];
+  let resumesData : Resume[] = [];
 
+  try {
+    const resumesResponse = await fetch(`${apiUrl}/api/resumes`);
+    const lettersResponse = await fetch(`${apiUrl}/api/letters`);
 
- if (!resumesResponse.ok || !lettersResponse.ok) {
-   throw new Error("Network response was not ok");
- }
+    if (!resumesResponse.ok || !lettersResponse.ok) {
+      throw new Error("Network response was not ok");
+    }
 
-const lettersData: Letter[] = await lettersResponse.json();
-const resumesData: Resume[] = await resumesResponse.json();
-
-
+    lettersData = await lettersResponse.json();
+    resumesData = await resumesResponse.json();
+  } catch (error) {
+    console.error("Failed to fetch data:", error);
+  }
 
    
    return (
