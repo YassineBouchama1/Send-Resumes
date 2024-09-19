@@ -38,7 +38,7 @@ export async function POST(req: Request) {
   try {
 // send email
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+      from: config.emailSmtp,
       to: email,
       subject: subject,
       html: letterContent,

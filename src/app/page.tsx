@@ -1,5 +1,5 @@
 import { Letter, Resume } from '@/types'
-import SenderForm from '@/components/SenderForm';
+import SenderForm from '@/components/SenderForm/SenderForm';
 
 
 import { Toaster } from 'react-hot-toast';

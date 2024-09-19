@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { Letter, Resume } from "@/types";
-import Loader from "@/shared/Loader";
+import Loader from "@/components/Loader";
 import type { FC } from "react";
-import toast from "react-hot-toast";
+
+import SenderFormHook from "./SenderForm.hook";
 
 interface SenderFormProps {
   resumes: Resume[];
@@ -12,65 +12,23 @@ interface SenderFormProps {
 }
 
 const SenderForm: FC<SenderFormProps> = ({ resumes = [], letters = [] }) => {
-  const [emails, setEmails] = useState<string>("");
-  const [selectedLetter, setSelectedLetter] = useState<string>("");
-  const [selectedResume, setSelectedResume] = useState<string>("");
-  const [subject, setSubject] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
 
 
 
+  const {
+    handleSubmit,
+    isLoading,
+    setSelectedLetter,
+    setSelectedResume,
+    setSubject,
+    setEmails,
+    selectedLetter,
+    selectedResume,
+    subject,
+    emails,
+  } = SenderFormHook();
 
-
-
-  // function to handle
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  setIsLoading(true);
-
-  // Split emails
-  const emailList =  emails.split(",").map((email) => email.trim());
-
-  // Send each email alone
-  for (const email of emailList) {
-   
-    // Send email with a loading spinner and success/error toast
-    await toast.promise(onSend(email), {
-      loading: `Sending...To ${email}`,
-      success: <b>Email sent!</b>,
-      error: <b>Email not sent.</b>, 
-    });
-  }
-
-  // Update state and toast success message
-  setIsLoading(false);
-};
-
-
-
-
-//
-async function onSend(email: string): Promise<void> {
-  try {
-  await fetch("/api/send-email", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        letterId: selectedLetter,
-        resumeId: selectedResume,
-        subject,
-      }),
-    });
-
-
-  } catch (error) {
-    throw error; 
-  }
-}
 
 
 
