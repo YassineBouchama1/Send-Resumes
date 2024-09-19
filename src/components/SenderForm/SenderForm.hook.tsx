@@ -20,6 +20,9 @@ const SenderFormHook = () => {
     return selectedLetter && selectedResume && subject && emails.length > 0;
   }, [selectedLetter, selectedResume, subject, emails]);
 
+
+
+  console.log(process.env.NEXT_PUBLIC_API_URL);
   // Send each email alone
   const onSend = useCallback(
     async (email: string): Promise<void> => {
