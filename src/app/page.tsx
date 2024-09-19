@@ -7,8 +7,8 @@ import { Toaster } from 'react-hot-toast';
 export default async function Home() {
 const apiUrl =
   process.env.NODE_ENV === "production"
-    ? "http://send-resumes-git-main-sisko0s-projects.vercel.app"
-    : process.env.NEXT_PUBLIC_API_URL;
+    ? process.env.NEXT_PUBLIC_API_URL
+    : process.env.NEXT_PUBLIC_API_URL_LOCAL;
 
 const resumesResponse = await fetch(`${apiUrl}/api/resumes`);
 const lettersResponse = await fetch(`${apiUrl}/api/letters`);
