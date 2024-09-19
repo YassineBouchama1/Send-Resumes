@@ -16,7 +16,7 @@ export default async function Home() {
 
   try {
     const resumesResponse = await fetch(`${apiUrl}/api/resumes`);
-    const lettersResponse = await fetch(`/api/letters`);
+    const lettersResponse = await fetch(`${apiUrl}/api/letters`);
 
     if (!resumesResponse.ok || !lettersResponse.ok) {
       throw new Error("Network response was not ok");

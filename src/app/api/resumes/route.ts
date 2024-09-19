@@ -1,18 +1,27 @@
-import { NextResponse } from 'next/server'
-import { Resume } from '@/types'
-import fs from 'fs'
-import path from 'path'
+import { NextResponse } from "next/server";
+import { Resume } from "@/types";
+import path from "path";
+import fs from "fs";
 
 export async function GET() {
+  const resumesDir = path.join(process.cwd(), "data", "resumes");
 
-    // get resumes from folder 
-    const resumesDir = path.join(process.cwd(), 'data', 'resumes')
-    const resumeFiles = fs.readdirSync(resumesDir)
+  try {
+    const resumeFiles = fs.readdirSync(resumesDir);
 
-    const resumes: Resume[] = resumeFiles.map(file => {
-        const id = path.parse(file).name
-        return { id, name: `Resume ${id}`, filename: file }
-    })
+    const resumes: Resume[] = resumeFiles.map((file) => {
+      const id = path.parse(file).name;
+      const filePath = path.join(resumesDir, file);
+      const stats = fs.statSync(filePath);
+      return { id, name: `Resume ${id}`, filename: file, size: stats.size };
+    });
 
-    return NextResponse.json(resumes)
+    return NextResponse.json(resumes);
+  } catch (error) {
+    console.error("Error reading resume files:", error);
+    return NextResponse.json(
+      { error: "Failed to read resume files" },
+      { status: 500 }
+    );
+  }
 }
