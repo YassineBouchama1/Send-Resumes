@@ -12,7 +12,7 @@ export async function GET() {
     const resumeFiles = fs.readdirSync(resumesDir);
 
     const resumes: Resume[] = resumeFiles.map((file) => {
-      const id = path.parse(file).name;
+      const id = path.parse(file).name ;
       const filePath = path.join(resumesDir, file);
       const stats = fs.statSync(filePath);
       return { id, name: `Resume ${id}`, filename: file, size: stats.size };

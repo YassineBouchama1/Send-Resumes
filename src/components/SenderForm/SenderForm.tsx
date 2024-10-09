@@ -8,31 +8,23 @@ import SenderFormHook from "./SenderForm.hook";
 
 interface SenderFormProps {
   resumes: Resume[];
-  letters: Letter[];
+
 }
 
-const SenderForm: FC<SenderFormProps> = ({ resumes = [], letters = [] }) => {
+const SenderForm: FC<SenderFormProps> = ({ resumes = []}) => {
   const {
     handleSubmit,
     isLoading,
-    setSelectedLetter,
+    setMessage,
     setSelectedResume,
     setSubject,
     setEmails,
-    selectedLetter,
+    message,
     selectedResume,
     subject,
     emails,
   } = SenderFormHook();
 
-  // memorize and build  th options for letters and resumes
-  const letterOptions = useMemo(() => {
-    return letters.map((letter) => (
-      <option key={letter.id} value={letter.id}>
-        {letter.name}
-      </option>
-    ));
-  }, [letters]);
 
   const resumeOptions = useMemo(() => {
     return resumes.map((resume) => (
@@ -67,24 +59,7 @@ const SenderForm: FC<SenderFormProps> = ({ resumes = [], letters = [] }) => {
               rows={4}
             />
           </div>
-          <div className="mb-4">
-            <label
-              htmlFor="letter"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Select Letter
-            </label>
-            <select
-              id="letter"
-              value={selectedLetter}
-              onChange={(e) => setSelectedLetter(e.target.value)}
-              required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring border-2 focus:ring-indigo-200 focus:ring-opacity-50"
-            >
-              <option value="">Select a letter</option>
-              {letterOptions}
-            </select>
-          </div>
+
           <div className="mb-4">
             <label
               htmlFor="resume"
@@ -117,6 +92,23 @@ const SenderForm: FC<SenderFormProps> = ({ resumes = [], letters = [] }) => {
               onChange={(e) => setSubject(e.target.value)}
               required
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm border-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="message"
+              className="block text-sm font-medium text-gray-700 "
+            >
+              <p> Message</p>
+            </label>
+
+            <textarea
+              id="message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              required
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm border-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              rows={6}
             />
           </div>
           <div>

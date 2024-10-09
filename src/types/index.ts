@@ -13,7 +13,7 @@ export interface Letter {
   export interface EmailRequest {
     emails?: string[];
     email?: string;
-    letterId: string;
+    message: string;
     resumeId: string;
     subject: string;
   }

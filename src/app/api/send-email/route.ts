@@ -7,14 +7,9 @@ import { config } from "../../../../config";
 
 
 export async function POST(req: Request) {
-  const { email, letterId, resumeId, subject }: EmailRequest = await req.json();
+  const { email, message, resumeId, subject }: EmailRequest = await req.json();
 
-  // fetch letter content
-  const lettersDir = path.join(process.cwd(), "data", "letters");
-  const letterContent = fs.readFileSync(
-    path.join(lettersDir, `${letterId}.html`),
-    "utf-8"
-  );
+
 
   // fetch resume file
   const resumesDir = path.join(process.cwd(), "data", "resumes");
@@ -42,7 +37,7 @@ export async function POST(req: Request) {
       from: config.emailSmtp,
       to: email,
       subject: subject,
-      html: letterContent,
+      html: message,
       attachments: [
         {
           filename: resumeFilename,

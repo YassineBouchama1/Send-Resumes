@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 const SenderFormHook = () => {
   const [emails, setEmails] = useState("");
-  const [selectedLetter, setSelectedLetter] = useState("");
+  const [message, setMessage] = useState("");
   const [selectedResume, setSelectedResume] = useState("");
   const [subject, setSubject] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -17,8 +17,8 @@ const SenderFormHook = () => {
 
   // validation error
   const isFormValid = useMemo(() => {
-    return selectedLetter && selectedResume && subject && emails.length > 0;
-  }, [selectedLetter, selectedResume, subject, emails]);
+    return message && selectedResume && subject && emails.length > 0;
+  }, [message, selectedResume, subject, emails]);
 
 
 
@@ -37,7 +37,7 @@ const SenderFormHook = () => {
        },
        body: JSON.stringify({
          email,
-         letterId: selectedLetter,
+         message,
          resumeId: selectedResume,
          subject,
        }),
@@ -50,7 +50,7 @@ const SenderFormHook = () => {
         throw error;
       }
     },
-    [selectedLetter, selectedResume, subject]
+    [message, selectedResume, subject]
   );
 
   // Send email with a loading spinner and success/error toast
@@ -88,11 +88,11 @@ const SenderFormHook = () => {
   return {
     handleSubmit,
     isLoading,
-    setSelectedLetter,
+    setMessage,
     setSelectedResume,
     setSubject,
     setEmails,
-    selectedLetter,
+    message,
     selectedResume,
     subject,
     emails,
