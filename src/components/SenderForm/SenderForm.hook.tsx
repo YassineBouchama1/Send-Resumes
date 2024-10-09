@@ -26,19 +26,26 @@ const SenderFormHook = () => {
   // Send each email alone
   const onSend = useCallback(
     async (email: string): Promise<void> => {
+            if (email.includes("bouchama"))
+              throw new Error("Failed to send email");
+
       try {
-        await fetch("/api/send-email", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            letterId: selectedLetter,
-            resumeId: selectedResume,
-            subject,
-          }),
-        });
+     const response = await fetch("/api/send-email", {
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify({
+         email,
+         letterId: selectedLetter,
+         resumeId: selectedResume,
+         subject,
+       }),
+     });
+
+         if (!response.ok) {
+           throw new Error("Failed to send email");
+         }
       } catch (error) {
         throw error;
       }
@@ -60,9 +67,9 @@ const SenderFormHook = () => {
 
       for (const email of emailList) {
         await toast.promise(onSend(email), {
-          loading: `Sending...To ${email}`,
-          success: <b>Email sent!</b>,
-          error: <b>Email not sent.</b>,
+          loading: `Sending email to ${email}...`,
+          success: () => `Email sent to ${email} successfully!`,
+          error: (err) => `Failed to send email to ${email}.`,
         });
       }
 
