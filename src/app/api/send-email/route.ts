@@ -5,6 +5,7 @@ import fs from "fs";
 import path from "path";
 import { config } from "../../../../config";
 
+
 export async function POST(req: Request) {
   const { email, letterId, resumeId, subject }: EmailRequest = await req.json();
 

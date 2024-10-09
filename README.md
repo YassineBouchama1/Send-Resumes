@@ -2,6 +2,9 @@
 
 Sender Resume is a project that allows users to add a list of emails, upload resumes and letters, and send them all simultaneously to the specified email addresses using SMTP.
 
+## TODO : 
+ 1 - Make it Reu
+
 ## Demo
 
 You can view the live demo of the project at: [send-resumes.vercel.app](https://send-resumes.vercel.app)
