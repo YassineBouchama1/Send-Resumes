@@ -3,7 +3,6 @@
 import {  Resume } from "@/types";
 import Loader from "@/components/Loader";
 import { useMemo, type FC } from "react";
-
 import SenderFormHook from "./SenderForm.hook";
 
 interface SenderFormProps {
@@ -46,7 +45,9 @@ const SenderForm: FC<SenderFormProps> = ({ resumes = []}) => {
               htmlFor="emails"
               className="block text-sm font-medium text-gray-700 pb-4"
             >
-              <p> Email Addresses (comma-separated)</p>
+              <p>
+                Email Addresses (comma-separated)
+              </p>
               <span> Example: hello@yassine.info,bouchamajob@gmail.com</span>
             </label>
 
@@ -55,7 +56,7 @@ const SenderForm: FC<SenderFormProps> = ({ resumes = []}) => {
               value={emails}
               onChange={(e) => setEmails(e.target.value)}
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm border-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm border-2 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               rows={4}
             />
           </div>
@@ -99,7 +100,7 @@ const SenderForm: FC<SenderFormProps> = ({ resumes = []}) => {
               htmlFor="message"
               className="block text-sm font-medium text-gray-700 "
             >
-              <p> Message</p>
+              <p> Message : Html or Text</p>
             </label>
 
             <textarea

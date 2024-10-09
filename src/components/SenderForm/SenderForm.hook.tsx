@@ -26,8 +26,7 @@ const SenderFormHook = () => {
   // Send each email alone
   const onSend = useCallback(
     async (email: string): Promise<void> => {
-            if (email.includes("bouchama"))
-              throw new Error("Failed to send email");
+         
 
       try {
      const response = await fetch("/api/send-email", {
