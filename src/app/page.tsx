@@ -1,6 +1,6 @@
 
 import SenderForm from '@/components/SenderForm/SenderForm';
-import { Letter, Resume } from "@/types";
+import { Resume } from "@/types";
 
 
 import { Toaster } from 'react-hot-toast';

@@ -72,7 +72,7 @@ const SenderFormHook = () => {
           await toast.promise(onSend(email), {
             loading: `Sending email to ${email}...`,
             success: () => `Email sent to ${email} successfully!`,
-            error: (err) => `Failed to send email to ${email}.`,
+            error: (err) => `Failed to send email to ${email}. ${err}`,
           });
         } catch (error) {
           console.error(`Error sending email to ${email}:`, error);

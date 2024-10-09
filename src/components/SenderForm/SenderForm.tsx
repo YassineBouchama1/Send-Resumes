@@ -1,6 +1,6 @@
 "use client";
 
-import { Letter, Resume } from "@/types";
+import {  Resume } from "@/types";
 import Loader from "@/components/Loader";
 import { useMemo, type FC } from "react";
 
